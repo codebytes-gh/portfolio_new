@@ -1,0 +1,130 @@
+import React from "react";
+import PropTypes from "prop-types";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Divider from "@mui/material/Divider";
+import IconButton from "@mui/material/IconButton";
+import Link from "@mui/material/Link";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import useScrollTrigger from "@mui/material/useScrollTrigger";
+import { useTheme } from "@mui/material/styles";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import MenuIcon from "@mui/icons-material/Menu";
+import GitHubIcon from '@mui/icons-material/GitHub';
+
+// Font Awesome Icons
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faLaptopCode } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+library.add(faLaptopCode);
+
+import CustomButton from "../components/CustomButton";
+import logopersonal from "../assets/logo/logopersonal.png";
+
+const Header = ({ onSidebarOpen }) => {
+  const theme = useTheme();
+  const trigger = useScrollTrigger({
+    disableHysteresis: true,
+    threshold: 38,
+  });
+  
+  return (
+    <React.Fragment>
+      <AppBar
+        position="sticky"
+        color="transparent"
+        elevation={trigger ? 1 : 0}
+        sx={{
+          top: 0,
+          border: 1,
+          backgroundColor: trigger ? theme.palette.background.default : "transparent",
+        }}
+      >
+        <Toolbar sx={{ minHeight: 70 }}>
+          <IconButton 
+            onClick={() => onSidebarOpen()}
+            aria-label="Menu"
+            sx={{ 
+              color: theme.palette.primary.main,
+              display: { xs: "block", md: "none" } 
+            }}
+          >
+            <MenuIcon fontSize="medium" />
+          </IconButton>
+          <Link href="/" style={{ textDecoration: "none" }}>
+            <img src={logopersonal} width={200} height={50} />
+              
+          </Link>
+          <Box sx={{ flexGrow: 1 }} />
+          <Box 
+            sx={{ 
+              alignItems: "center",
+              display: { md: "flex", xs: "none" } 
+            }}
+          >
+            <CustomButton 
+              href="#home"
+              text="Home"
+            />
+            <CustomButton 
+              href="#about"
+              text="About"
+            />
+            <CustomButton 
+              href="#projects"
+              text="Projects"
+            />
+            <CustomButton 
+              href="#technologies"
+              text="Technologies"
+            />
+           
+            <CustomButton 
+              href="#contact"
+              text="Contact"
+            />
+          </Box>
+          <Divider
+            orientation="vertical"
+            sx={{ 
+              height: 32, 
+              mx: 2,
+              display: { lg: "flex", md: "none", xs: "none" } 
+            }} 
+          />
+          <Box sx={{ display: { lg: "flex", md: "none", xs: "none" } }}>
+            <IconButton 
+              aria-label="GitHub" 
+              href="https://github.com/codebytes-gh"
+              target="_blank"
+              sx={{ 
+                color: theme.palette.common.white,
+              }}
+            >
+              <GitHubIcon fontSize="large" />
+            </IconButton>
+            <IconButton 
+              aria-label="LinkedIn" 
+              href="https://www.linkedin.com/in/jessica-pyle-a427b2241/"
+              target="_blank"
+              sx={{ 
+                color: theme.palette.common.white,
+              }}
+            >
+              <LinkedInIcon fontSize="large" />
+            </IconButton>
+           
+          </Box>
+        </Toolbar>
+      </AppBar>
+    </React.Fragment>
+  );
+};
+
+Header.propTypes = {
+  onSidebarOpen: PropTypes.func,
+};
+
+export default Header;
